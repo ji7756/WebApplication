@@ -2,7 +2,8 @@ machine:
   services:
     - docker
 
-override:
+dependencies:
+  override:
     - docker info
     - docker build -t amaline/aspnettest .
 
