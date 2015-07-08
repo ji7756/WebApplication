@@ -7,11 +7,11 @@ dependencies:
     - docker info
     - docker build -t amaline/aspnettest .
 
-test:
-  override:
-    - docker run -d -p 8080:5004 --name aspnet amaline/aspnettest; sleep 15
-    - docker logs aspnet
-    - curl --retry 10 --retry-delay 5 -v http://localhost:8080/index.html
+#test:
+#  override:
+#    - docker run -d -p 8080:5004 --name aspnet amaline/aspnettest; sleep 15
+#    - docker logs aspnet
+#    - curl --retry 10 --retry-delay 5 -v http://localhost:8080/index.html
 
 deployment:
   hub:
