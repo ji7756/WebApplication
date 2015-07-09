@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t amaline/aspnettest .
+
+test:
+  override:
+    - docker run -d -p 8080:5000 --name aspnet amaline/aspnettest; sleep 15
+    - docker logs aspnet
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8080/
+    - docker stop aspnet
+    - docker rm aspnet
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push amaline/aspnettest
